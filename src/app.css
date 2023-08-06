@@ -9,4 +9,8 @@
   body {
     @apply font-sansSerif;
   }
+
+  svg {
+    @apply fill-current;
+  }
 }
