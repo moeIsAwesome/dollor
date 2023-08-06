@@ -1,17 +1,8 @@
-<div class="grid grid-cols-12 gap-x-16 bg-whisper min-h-screen">
-  <header class="col-span-3 bg-daisyBush text-center">
-    <div>
-      <a href="/invoices"> <img src="" alt="" /></a>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="/invoices">Invoices </a></li>
-        <li><a href="/clients">Clients</a></li>
-        <li><a href="/#">Settings</a></li>
-        <li><a href="/#">Logout</a></li>
-      </ul>
-    </nav>
-  </header>
+<script lang="ts">
+  import Navbar from '$lib/components/Navbar.svelte';
+</script>
 
-  <main><slot /></main>
+<div class="grid grid-cols-12 gap-x-16 bg-whisper min-h-screen">
+  <Navbar />
+  <main class="col-span-8 pt-10"><slot /></main>
 </div>
