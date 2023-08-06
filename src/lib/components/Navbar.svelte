@@ -9,7 +9,7 @@
     >
   </div>
   <nav>
-    <ul>
+    <ul class="list-none text-2xl font-bold">
       <li>
         <a href="/invoices" class:active={$page.url.pathname === '/invoices'}
           >Invoices
