@@ -19,7 +19,7 @@
 <!-- SECTION: Mobile nav control -->
 <button
   on:click={() => (isNavShowing = !isNavShowing)}
-  class="fixed right-6 top-6 z-navBarToggle"
+  class="fixed right-6 top-6 z-navBarToggle md:hidden"
   class:text-goldenFizz={isNavShowing}
   class:text-daisyBusy={!isNavShowing}
 >

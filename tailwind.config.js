@@ -8,6 +8,18 @@ export default {
       handwriting: ['Kalam', 'cursive'],
     },
     extend: {
+      backgroundImage: {
+        circle: "url('/images/circle.svg')",
+      },
+
+      borderWidth: {
+        1: '1px',
+      },
+      boxShadow: {
+        colored: '0 7px 16px rgba(127,91,220,0.002);',
+        coloredHover: '0 16px 25px rgba(127,91,220,0.3);',
+        tableRow: '0px 0px 6px rgba(0, 0, 0, 0.16);',
+      },
       colors: {
         lavenderIndigo: '#8657e1',
         daisyBush: '#4714a5',
@@ -24,6 +36,10 @@ export default {
         gallery: '#efeaf2',
         fog: '#decaec',
       },
+      gridTemplateColumns: {
+        invoiceTable: '100px 100px 60px 1fr 116px 32px 32px ',
+      },
+
       zIndex: {
         navBarToggle: 1001,
         navBar: 1000,
