@@ -1,9 +1,15 @@
 <script>
-  import View from '$lib/components/Icon/View.svelte';
   import Search from '$lib/components/Search.svelte';
-  import Tag from '$lib/components/Tag.svelte';
-  import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
+
   import CircledAmount from '$lib/components/CircledAmount.svelte';
+  import { invoices, loadInvoices } from '$lib/stores/invoiceStore';
+  import { onMount } from 'svelte';
+  import InvoiceRow from './invoiceRow.svelte';
+
+  onMount(() => {
+    loadInvoices();
+    console.log($invoices);
+  });
 </script>
 
 Invoices
@@ -12,12 +18,14 @@ Invoices
   <title>Invoices | The dollor</title>
 </svelte:head>
 
-<div class="flex justify-between items-center mb-16">
+<div
+  class="flex justify-between mb-7 gap-y-6 md:gap-y-4 lg:mb-16 flex-col-reverse md:flex-row items-start md:items-center"
+>
   <Search />
 
   <div>
     <button
-      class="relative whitespace-nowrap rounded-lg bg-lavenderIndigo px-10 py-3 font-sansSerif text-xl font-black text-white shadow-colored hover:shadow-coloredHover translate-y-0 hover:-translate-y-2 transition-all"
+      class="relative whitespace-nowrap rounded-lg bg-lavenderIndigo lg:px-10 lg:py-3 font-sansSerif lg:text-xl text-base py-2 px-5 font-black text-white shadow-colored hover:shadow-coloredHover translate-y-0 hover:-translate-y-2 transition-all"
       >+ Invoice</button
     >
   </div>
@@ -25,7 +33,7 @@ Invoices
 
 <div>
   <!-- Header -->
-  <div class=" text-daisyBush invoice-table table-header">
+  <div class=" text-daisyBush invoice-table table-header hidden lg-grid">
     <h3>Status</h3>
     <h3>Due Date</h3>
     <h3>ID</h3>
@@ -37,24 +45,9 @@ Invoices
 </div>
 
 <!--Invoices -->
-<div
-  class="invoice-table items-center bg-white py-6 rounded-lg shadow-tableRow"
->
-  <div><Tag label="draft" /></div>
-  <div class="text-lg">12/08/2023</div>
-  <div class="text-lg">12345</div>
-  <div class="text-xl font-bold">Compressed.fm</div>
-  <div class="text-lg font-bold font-mono">$504.00</div>
-  <div class="text-lg">
-    <a href="#" class="text-pastelPurple hover:text-daisyBush"><View /></a>
-  </div>
-  <div class="text-lg center">
-    <button class=" text-pastelPurple hover:text-daisyBush"
-      ><ThreeDots /></button
-    >
-  </div>
-  <div />
-</div>
+{#each $invoices as invoice}
+  <InvoiceRow {invoice} />
+{/each}
 
 <CircledAmount label="Total" amount="$504.00" />
 

@@ -26,10 +26,7 @@
  * ```
  */
 declare module '$env/static/private' {
-	export const MANPATH: string;
-	export const COREPACK_ROOT: string;
 	export const npm_package_devDependencies_prettier: string;
-	export const npm_config_legacy_peer_deps: string;
 	export const TERM_PROGRAM: string;
 	export const npm_package_devDependencies_eslint_plugin_svelte: string;
 	export const NODE: string;
@@ -40,11 +37,9 @@ declare module '$env/static/private' {
 	export const TERM: string;
 	export const SHELL: string;
 	export const npm_package_devDependencies_vite: string;
-	export const HOMEBREW_REPOSITORY: string;
 	export const TMPDIR: string;
 	export const npm_package_scripts_lint: string;
 	export const TERM_PROGRAM_VERSION: string;
-	export const ANDROID_SDK_ROOT: string;
 	export const npm_package_scripts_dev: string;
 	export const MallocNanoZone: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
@@ -69,6 +64,7 @@ declare module '$env/static/private' {
 	export const PAGER: string;
 	export const npm_package_devDependencies_svelte: string;
 	export const LSCOLORS: string;
+	export const npm_config_frozen_lockfile: string;
 	export const npm_package_devDependencies__typescript_eslint_parser: string;
 	export const PATH: string;
 	export const __CFBundleIdentifier: string;
@@ -102,7 +98,6 @@ declare module '$env/static/private' {
 	export const npm_package_type: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const LC_TERMINAL_VERSION: string;
-	export const HOMEBREW_PREFIX: string;
 	export const ITERM_SESSION_ID: string;
 	export const LOGNAME: string;
 	export const LESS: string;
@@ -111,16 +106,12 @@ declare module '$env/static/private' {
 	export const LC_CTYPE: string;
 	export const VSCODE_GIT_IPC_HANDLE: string;
 	export const npm_config_user_agent: string;
-	export const INFOPATH: string;
-	export const HOMEBREW_CELLAR: string;
 	export const GIT_ASKPASS: string;
 	export const VSCODE_GIT_ASKPASS_NODE: string;
 	export const _P9K_SSH_TTY: string;
 	export const LC_TERMINAL: string;
-	export const SQLITE_EXEMPT_PATH_FROM_VNODE_GUARDS: string;
 	export const npm_package_scripts_check: string;
 	export const COLORTERM: string;
-	export const npm_config_prefix: string;
 	export const npm_node_execpath: string;
 	export const NODE_ENV: string;
 }
@@ -152,10 +143,7 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
-		MANPATH: string;
-		COREPACK_ROOT: string;
 		npm_package_devDependencies_prettier: string;
-		npm_config_legacy_peer_deps: string;
 		TERM_PROGRAM: string;
 		npm_package_devDependencies_eslint_plugin_svelte: string;
 		NODE: string;
@@ -166,11 +154,9 @@ declare module '$env/dynamic/private' {
 		TERM: string;
 		SHELL: string;
 		npm_package_devDependencies_vite: string;
-		HOMEBREW_REPOSITORY: string;
 		TMPDIR: string;
 		npm_package_scripts_lint: string;
 		TERM_PROGRAM_VERSION: string;
-		ANDROID_SDK_ROOT: string;
 		npm_package_scripts_dev: string;
 		MallocNanoZone: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
@@ -195,6 +181,7 @@ declare module '$env/dynamic/private' {
 		PAGER: string;
 		npm_package_devDependencies_svelte: string;
 		LSCOLORS: string;
+		npm_config_frozen_lockfile: string;
 		npm_package_devDependencies__typescript_eslint_parser: string;
 		PATH: string;
 		__CFBundleIdentifier: string;
@@ -228,7 +215,6 @@ declare module '$env/dynamic/private' {
 		npm_package_type: string;
 		VSCODE_GIT_ASKPASS_MAIN: string;
 		LC_TERMINAL_VERSION: string;
-		HOMEBREW_PREFIX: string;
 		ITERM_SESSION_ID: string;
 		LOGNAME: string;
 		LESS: string;
@@ -237,16 +223,12 @@ declare module '$env/dynamic/private' {
 		LC_CTYPE: string;
 		VSCODE_GIT_IPC_HANDLE: string;
 		npm_config_user_agent: string;
-		INFOPATH: string;
-		HOMEBREW_CELLAR: string;
 		GIT_ASKPASS: string;
 		VSCODE_GIT_ASKPASS_NODE: string;
 		_P9K_SSH_TTY: string;
 		LC_TERMINAL: string;
-		SQLITE_EXEMPT_PATH_FROM_VNODE_GUARDS: string;
 		npm_package_scripts_check: string;
 		COLORTERM: string;
-		npm_config_prefix: string;
 		npm_node_execpath: string;
 		NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
