@@ -5,14 +5,16 @@
   import { invoices, loadInvoices } from '$lib/stores/invoiceStore';
   import { onMount } from 'svelte';
   import InvoiceRow from './invoiceRow.svelte';
+  import { sumInvoices, centsToDollors } from '$lib/utils/moneyHelper';
+  import BlankState from './BlankState.svelte';
+  import InvoiceRowHeader from './InvoiceRowHeader.svelte';
+  import Portal from '$lib/components/Portal.svelte';
 
   onMount(() => {
     loadInvoices();
     console.log($invoices);
   });
 </script>
-
-Invoices
 
 <svelte:head>
   <title>Invoices | The dollor</title>
@@ -21,7 +23,11 @@ Invoices
 <div
   class="flex justify-between mb-7 gap-y-6 md:gap-y-4 lg:mb-16 flex-col-reverse md:flex-row items-start md:items-center"
 >
-  <Search />
+  {#if $invoices.length > 0}
+    <Search />
+  {:else}
+    <div />
+  {/if}
 
   <div>
     <button
@@ -31,28 +37,25 @@ Invoices
   </div>
 </div>
 
-<div>
-  <!-- Header -->
-  <div class=" text-daisyBush invoice-table table-header hidden lg-grid">
-    <h3>Status</h3>
-    <h3>Due Date</h3>
-    <h3>ID</h3>
-    <h3>Client</h3>
-    <h3>Amount</h3>
-    <div />
-    <div />
-  </div>
-</div>
+<div />
+
+<Portal><div>Invoice form</div></Portal>
 
 <!--Invoices -->
-{#each $invoices as invoice}
-  <InvoiceRow {invoice} />
-{/each}
 
-<CircledAmount label="Total" amount="$504.00" />
-
-<style lang="postcss">
-  .table-header h3 {
-    @apply text-xl font-black text-daisyBush;
-  }
-</style>
+{#if invoices === null}
+  Loading ...
+{:else if $invoices.length <= 0}
+  <BlankState />
+{:else}
+  <InvoiceRowHeader className="text-daisyBush" />
+  <div class="flex flex-col-reverse">
+    {#each $invoices as invoice}
+      <InvoiceRow {invoice} />
+    {/each}
+  </div>
+  <CircledAmount
+    label="Total"
+    amount={`$${centsToDollors(sumInvoices($invoices))}`}
+  />
+{/if}

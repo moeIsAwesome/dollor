@@ -75,6 +75,7 @@ declare module '$env/static/private' {
 	export const VSCODE_NONCE: string;
 	export const npm_package_scripts_preview: string;
 	export const P9K_SSH: string;
+	export const npm_package_dependencies_date_fns: string;
 	export const npm_lifecycle_event: string;
 	export const P9K_TTY: string;
 	export const LANG: string;
@@ -192,6 +193,7 @@ declare module '$env/dynamic/private' {
 		VSCODE_NONCE: string;
 		npm_package_scripts_preview: string;
 		P9K_SSH: string;
+		npm_package_dependencies_date_fns: string;
 		npm_lifecycle_event: string;
 		P9K_TTY: string;
 		LANG: string;
