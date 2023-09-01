@@ -12,6 +12,10 @@ export default {
         arrowRightUP: "url('/images/arrow-right-up.svg')",
         arrowLeftUp: "url('/images/arrow-left-up.svg')",
         circle: "url('/images/circle.svg')",
+        chevronDown: "url('/images/chevron-down.svg')",
+      },
+      backgroundPosition: {
+        'right-center': '97% center',
       },
 
       borderWidth: {
@@ -21,6 +25,7 @@ export default {
         colored: '0 7px 16px rgba(127,91,220,0.002);',
         coloredHover: '0 16px 25px rgba(127,91,220,0.3);',
         tableRow: '0px 0px 6px rgba(0, 0, 0, 0.16);',
+        slidePanel: '-4px 0px 44px rgba(0, 0, 0, 0.25);',
       },
       colors: {
         blueGem: '#3813a0',
@@ -45,8 +50,11 @@ export default {
       },
 
       zIndex: {
-        navBarToggle: 1001,
-        navBar: 1000,
+        modal: 999,
+        slidePanel: 998,
+        overlay: 997,
+        navBarToggle: 91,
+        navBar: 90,
       },
     },
   },

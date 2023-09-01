@@ -8,13 +8,16 @@
   import Send from '$lib/components/Icon/Send.svelte';
   import Edit from '$lib/components/Icon/Edit.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
-
+  import Modal from '$lib/components/Modal.svelte';
+  import Button from '$lib/components/Button.svelte';
+  import { deteleInvoice } from '$lib/stores/invoiceStore';
   export let invoice: Invoice;
-
+  let isModalShowing = false;
   let isAdditionalMenuShowing = false;
   let isOptionDisabled = false;
   const handleDelete = () => {
-    console.log('delete');
+    isModalShowing = true;
+    isAdditionalMenuShowing = false;
   };
   const handleEdit = () => {
     console.log('edited');
@@ -91,6 +94,48 @@
   </div>
   <div />
 </div>
+
+<Modal
+  isVisible={isModalShowing}
+  on:close={() => {
+    isModalShowing = false;
+  }}
+>
+  <div
+    class="flex flex-col justify-between items-center gap-6 h-full min-h-[175px]"
+  >
+    <div class="text-center text-xl font-bold text-daisyBush">
+      Are you sure that wou want to delete this invoice to <span
+        class="text-scarlet"
+      >
+        {invoice.client.name}</span
+      >
+      for
+      <span class="text-scarlet"
+        >{centsToDollors(sumLineItems(invoice.lineItems))}</span
+      >?
+    </div>
+    <div class="flex gap-4">
+      <Button
+        label="Cancel"
+        onClick={() => {
+          isModalShowing = false;
+        }}
+        isAnimated={false}
+        style="primary"
+      />
+      <Button
+        label="Yes, Delete it"
+        onClick={() => {
+          deteleInvoice(invoice);
+          isModalShowing = false;
+        }}
+        isAnimated={false}
+        style="destructive"
+      />
+    </div>
+  </div>
+</Modal>
 
 <style lang="postcss">
   .invoice-row {

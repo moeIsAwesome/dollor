@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Search from '$lib/components/Search.svelte';
 
   import CircledAmount from '$lib/components/CircledAmount.svelte';
@@ -8,7 +8,11 @@
   import { sumInvoices, centsToDollors } from '$lib/utils/moneyHelper';
   import BlankState from './BlankState.svelte';
   import InvoiceRowHeader from './InvoiceRowHeader.svelte';
-  import Portal from '$lib/components/Portal.svelte';
+  import Button from '$lib/components/Button.svelte';
+  import SlidePanel from '$lib/components/SlidePanel.svelte';
+  import InvoiceForm from './InvoiceForm.svelte';
+
+  let isInvoiceFormShowing: boolean = false;
 
   onMount(() => {
     loadInvoices();
@@ -30,16 +34,16 @@
   {/if}
 
   <div>
-    <button
-      class="relative whitespace-nowrap rounded-lg bg-lavenderIndigo lg:px-10 lg:py-3 font-sansSerif lg:text-xl text-base py-2 px-5 font-black text-white shadow-colored hover:shadow-coloredHover translate-y-0 hover:-translate-y-2 transition-all"
-      >+ Invoice</button
-    >
+    <Button
+      label="+ Invoice"
+      onClick={() => {
+        isInvoiceFormShowing = true;
+      }}
+    />
   </div>
 </div>
 
 <div />
-
-<Portal><div>Invoice form</div></Portal>
 
 <!--Invoices -->
 
@@ -58,4 +62,12 @@
     label="Total"
     amount={`$${centsToDollors(sumInvoices($invoices))}`}
   />
+{/if}
+
+{#if isInvoiceFormShowing}
+  <SlidePanel
+    on:closePanel={() => {
+      isInvoiceFormShowing = false;
+    }}><InvoiceForm /></SlidePanel
+  >
 {/if}
