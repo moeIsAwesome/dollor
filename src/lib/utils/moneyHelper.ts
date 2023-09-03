@@ -26,6 +26,16 @@ export const centsToDollors = (cents: number): string => {
 };
 
 /**
+ * Takes a dollor amount (USD) and returns cents
+ * @param {number} dollars
+ * @returns {number}
+ */
+
+export const dollarsToCents = (dollars: number): number => {
+  return dollars * 100;
+};
+
+/**
  * Takes a number and returns a number with 2 decilam places
  * @param {number} myNum
  * @returns {string}
