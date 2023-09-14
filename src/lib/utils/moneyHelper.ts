@@ -21,7 +21,7 @@ export const sumLineItems = (lineItems: LineItem[] | undefined): number => {
 
 export const centsToDollors = (cents: number): string => {
   const dollars = cents / 100;
-  const addDecilams = twoDecilams(dollars);
+  const addDecilams = twoDecimals(dollars);
   return addThousandsSeparator(addDecilams);
 };
 
@@ -41,7 +41,7 @@ export const dollarsToCents = (dollars: number): number => {
  * @returns {string}
  */
 
-export const twoDecilams = (myNum: number): string => {
+export const twoDecimals = (myNum: number): string => {
   return myNum.toFixed(2);
 };
 

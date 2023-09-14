@@ -1,18 +1,20 @@
 <script lang="ts">
-  import Trash from '$lib/components/Icon/Trash.svelte';
-  import { twoDecilams, dollarsToCents } from '$lib/utils/moneyHelper';
   import { createEventDispatcher } from 'svelte';
+  import Trash from '$lib/components/Icon/Trash.svelte';
+  import { twoDecimals, dollarsToCents } from '$lib/utils/moneyHelper';
+
   export let lineItem: LineItem;
   export let canDelete: boolean = false;
-  let unitPrice: string = twoDecilams(lineItem.amount / lineItem.quantity);
-  let amount: string = twoDecilams(lineItem.amount);
+
+  let unitPrice: string = twoDecimals(lineItem.amount / lineItem.quantity);
+  let amount: string = twoDecimals(lineItem.amount);
 
   $: {
-    amount = twoDecilams(Number(unitPrice) * Number(lineItem.quantity));
+    amount = twoDecimals(lineItem.quantity * Number(unitPrice));
     lineItem.amount = dollarsToCents(Number(amount));
   }
 
-  const dispatch = createEventDispatcher();
+  let dispatch = createEventDispatcher();
 </script>
 
 <div class="invoice-line-item border-b-2 border-fog py-2">
@@ -34,7 +36,8 @@
       min="0"
       bind:value={unitPrice}
       on:blur={() => {
-        unitPrice = twoDecilams(Number(unitPrice));
+        unitPrice = twoDecimals(Number(unitPrice));
+        dispatch('updateLineItem');
       }}
     />
   </div>
@@ -46,6 +49,9 @@
       name="quantity"
       min="0"
       bind:value={lineItem.quantity}
+      on:blur={() => {
+        dispatch('updateLineItem');
+      }}
     />
   </div>
 
@@ -56,13 +62,13 @@
       name="amount"
       step="0.01"
       min="0"
-      disabled
       bind:value={amount}
+      disabled
     />
   </div>
 
-  {#if canDelete}
-    <div>
+  <div>
+    {#if canDelete}
       <button
         on:click|preventDefault={() => {
           dispatch('removeLineItem', lineItem.id);
@@ -70,8 +76,8 @@
         class="center h-10 w-10 text-pastelPurple hover:text-lavenderIndigo"
         ><Trash /></button
       >
-    </div>
-  {/if}
+    {/if}
+  </div>
 </div>
 
 <style lang="postcss">
@@ -93,8 +99,8 @@
     @apply border-solid border-lavenderIndigo outline-none;
   }
 
-  input[type='text']:disabled,
-  input[type='number']:disabled {
+  input[type='number']:disabled,
+  input[type='text']:disabled {
     @apply border-b-0 bg-transparent px-0;
   }
 </style>

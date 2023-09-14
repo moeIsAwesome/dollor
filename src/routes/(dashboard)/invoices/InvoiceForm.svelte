@@ -11,16 +11,20 @@
     amount: 0,
   };
 
+  let lineItems: LineItem[] = [{ ...blankLineItem }];
+
   const AddLineItem = () => {
     lineItems = [...lineItems, { ...blankLineItem, id: uuidv4() }];
   };
 
   const RemoveLineItem = (event) => {
     lineItems = lineItems.filter((item) => item.id !== event.detail);
-    console.log('remove Line Item');
+    console.log('remove line item');
   };
 
-  let lineItems: LineItem[] = [{ ...blankLineItem }];
+  const UpdateLineItem = () => {
+    lineItems = lineItems;
+  };
 </script>
 
 <h2 class="mb-7 font-sansSerif text-3xl font-bold text-daisyBush">
@@ -75,6 +79,7 @@
       {lineItems}
       on:addLineItem={AddLineItem}
       on:removeLineItem={RemoveLineItem}
+      on:updateLineItem={UpdateLineItem}
     />
   </div>
 
