@@ -4,13 +4,13 @@
   import CircledAmount from '$lib/components/CircledAmount.svelte';
   import LineItemRow from './LineItemRow.svelte';
   import {
-    centsToDollors,
+    centsToDollars,
     sumLineItems,
     twoDecimals,
-  } from '$lib/utils/moneyHelper';
+  } from '$lib/utils/moneyHelpers';
 
   let subtotal: string = '0.00';
-  let discount: number;
+  export let discount: number = 0;
   let discountedAmount: string = '0.00';
   let total: string = '0.00';
 
@@ -18,15 +18,15 @@
   let dispatch = createEventDispatcher();
 
   $: if (sumLineItems(lineItems) > 0) {
-    subtotal = centsToDollors(sumLineItems(lineItems));
+    subtotal = centsToDollars(sumLineItems(lineItems));
   }
   $: if (subtotal && discount) {
-    discountedAmount = centsToDollors(
+    discountedAmount = centsToDollars(
       sumLineItems(lineItems) * (discount / 100)
     );
   }
 
-  $: total = twoDecimals(parseInt(subtotal) - parseInt(discountedAmount));
+  $: total = twoDecimals(Number(subtotal) - Number(discountedAmount));
 </script>
 
 <div class="invoice-line-item border-b-2 border-daisyBush pb-2">
@@ -43,6 +43,7 @@
       on:removeLineItem
       canDelete={index > 0}
       on:updateLineItem
+      isRequired={index === 0}
     />
   {/each}
 {/if}
@@ -72,6 +73,9 @@
       min="0"
       max="100"
       bind:value={discount}
+      on:change={() => {
+        dispatch('updateDiscount', { discount });
+      }}
     />
     <span class="text-mono absolute right-0 top-2">%</span>
   </div>
