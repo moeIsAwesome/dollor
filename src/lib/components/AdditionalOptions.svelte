@@ -3,7 +3,7 @@
   export let options: {
     label: string;
     icon?: new (...args: any[]) => SvelteComponent;
-    disabled?: boolean;
+    disabled: boolean;
     onClick: () => void;
   }[];
 </script>
@@ -13,13 +13,12 @@
     {#if !option.disabled}
       <li>
         <button
-          class="flex w-full gap-x-2 p-4 font-sansSerif font-bold text-pastelPurple hover:text-daisyBush"
+          class="flex w-full gap-x-2 p-4 font-sansSerif font-bold text-pastelPurple hover:text-daisyBush "
           on:click={option.onClick}
         >
           {#if option.icon}
             <svelte:component this={option.icon} />
           {/if}
-
           {option.label}
         </button>
       </li>

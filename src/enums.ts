@@ -1,10 +1,10 @@
-export enum invoiceStatus {
+export enum InvoiceStatus {
   draft = 'draft',
-  paid = 'paid',
   sent = 'sent',
+  paid = 'paid'
 }
 
-export enum clientStatues {
+export enum ClientStatus {
   active = 'active',
-  archived = 'archived',
+  archived = 'archived'
 }

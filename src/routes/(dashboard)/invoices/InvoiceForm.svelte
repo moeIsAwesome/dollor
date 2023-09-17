@@ -10,18 +10,19 @@
   import { today } from '$lib/utils/dateHelpers';
   import { addInvoice, updateInvoice } from '$lib/stores/InvoiceStore';
   import ConfirmDelete from './ConfirmDelete.svelte';
+  import { snackbar } from '$lib/stores/SnackbarStore';
 
   const blankLineItem = {
     id: uuidv4(),
     description: '',
     quantity: 0,
-    amount: 0,
+    amount: 0
   };
 
   let isNewClient: boolean = false;
   export let invoice: Invoice = {
     client: {} as Client,
-    lineItems: [{ ...blankLineItem }] as LineItem[],
+    lineItems: [{ ...blankLineItem }] as LineItem[]
   } as Invoice;
   let newClient: Partial<Client> = {};
 
@@ -34,16 +35,12 @@
   const initialDiscount = invoice.discount || 0;
 
   const AddLineItem = () => {
-    invoice.lineItems = [
-      ...(invoice.lineItems as []),
-      { ...blankLineItem, id: uuidv4() },
-    ];
+    invoice.lineItems = [...(invoice.lineItems as []), { ...blankLineItem, id: uuidv4() }];
   };
 
   const RemoveLineItem = (event: CustomEvent) => {
     invoice.lineItems =
-      invoice?.lineItems &&
-      invoice.lineItems.filter((item) => item.id !== event.detail);
+      invoice?.lineItems && invoice.lineItems.filter((item) => item.id !== event.detail);
     console.log('remove line item');
   };
 
@@ -59,8 +56,16 @@
 
     if (formState === 'create') {
       addInvoice(invoice);
+      snackbar.send({
+        message: 'Your invoice was successfully created.',
+        type: 'success'
+      });
     } else {
       updateInvoice(invoice);
+      snackbar.send({
+        message: 'Your invoice was successfully updated.',
+        type: 'success'
+      });
     }
 
     closePanel();
@@ -92,11 +97,8 @@
           required={!isNewClient}
           bind:value={invoice.client.id}
           on:change={() => {
-            const selectedClient = $clients.find(
-              (client) => client.id === invoice.client.id
-            );
-            invoice.client.name =
-              selectedClient?.name !== undefined ? selectedClient.name : '';
+            const selectedClient = $clients.find((client) => client.id === invoice.client.id);
+            invoice.client.name = selectedClient?.name !== undefined ? selectedClient.name : '';
           }}
         >
           <option />
@@ -104,11 +106,7 @@
             <option value={client.id}>{client.name}</option>
           {/each}
         </select>
-        <div
-          class="text-base font-bold leading-[2.25rem] text-monsoon lg:leading-[3.5rem]"
-        >
-          or
-        </div>
+        <div class="text-base font-bold leading-[2.25rem] text-monsoon lg:leading-[3.5rem]">or</div>
         <Button
           label="+ Client"
           onClick={() => {
@@ -130,11 +128,7 @@
           bind:value={newClient.name}
           class="mb-2 sm:mb-0"
         />
-        <div
-          class="text-base font-bold leading-[2.25rem] text-monsoon lg:leading-[3.5rem]"
-        >
-          or
-        </div>
+        <div class="text-base font-bold leading-[2.25rem] text-monsoon lg:leading-[3.5rem]">or</div>
         <Button
           label="Existing Client"
           onClick={() => {
@@ -151,12 +145,7 @@
   <!-- invoice id -->
   <div class="field col-span-6 row-start-1 md:col-span-2 md:row-start-auto">
     <label for="invoiceNumber">Invoice ID</label>
-    <input
-      type="number"
-      name="invoiceNumber"
-      required
-      bind:value={invoice.invoiceNumber}
-    />
+    <input type="number" name="invoiceNumber" required bind:value={invoice.invoiceNumber} />
   </div>
 
   <!-- new client -->
@@ -175,12 +164,7 @@
 
       <div class="field col-span-6">
         <label for="street">Street</label>
-        <input
-          type="text"
-          name="street"
-          id="street"
-          bind:value={newClient.street}
-        />
+        <input type="text" name="street" id="street" bind:value={newClient.street} />
       </div>
 
       <div class="field col-span-2">
@@ -208,24 +192,13 @@
   <!-- due date -->
   <div class="field col-span-3 sm:col-span-2">
     <label for="dueDate">Due Date</label>
-    <input
-      type="date"
-      name="dueDate"
-      min={today}
-      required
-      bind:value={invoice.dueDate}
-    />
+    <input type="date" name="dueDate" min={today} required bind:value={invoice.dueDate} />
   </div>
 
   <!-- issue date -->
   <div class="field col-span-3 md:col-span-2 md:col-start-5">
     <label for="issueDate">Issue Date</label>
-    <input
-      type="date"
-      name="issueDate"
-      min={today}
-      bind:value={invoice.issueDate}
-    />
+    <input type="date" name="issueDate" min={today} bind:value={invoice.issueDate} />
   </div>
 
   <!-- subject -->
@@ -249,8 +222,7 @@
   <!-- notes -->
   <div class="field col-span-6">
     <label for="notes"
-      >Notes <span class="font-normal">(optional, displayed on invoice)</span
-      ></label
+      >Notes <span class="font-normal">(optional, displayed on invoice)</span></label
     >
     <textarea name="notes" id="notes" bind:value={invoice.notes} />
   </div>
@@ -258,9 +230,7 @@
   <!-- terms -->
   <div class="field col-span-6">
     <label for="terms"
-      >Terms <span class="font-normal"
-        >(optional, enter your terms and conditions)</span
-      ></label
+      >Terms <span class="font-normal">(optional, enter your terms and conditions)</span></label
     >
     <textarea name="terms" id="terms" bind:value={invoice.terms} />
     <div class="text-xs text-gray-400">

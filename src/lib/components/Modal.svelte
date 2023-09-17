@@ -1,10 +1,11 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+  import Portal from '$lib/components/Portal.svelte';
   import Cancel from './Icon/Cancel.svelte';
   import Overlay from './Overlay.svelte';
-  import Portal from './Portal.svelte';
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
+
   export let isVisible: boolean = false;
+  const dispatch = createEventDispatcher();
 </script>
 
 <svelte:window
@@ -18,17 +19,13 @@
 {#if isVisible}
   <Portal>
     <Overlay className="!z-modalOverlay" />
-    <div class="fixed inset-0 z-modal center">
-      <div
-        class="max-w-[450px] min-h-[230px] w-full rounded-lg bg-white px-10 py-7 relative"
-      >
+    <div class="center fixed inset-0 z-modal">
+      <div class="relative min-h-[230px] w-full max-w-[450px] rounded-lg bg-white px-10 py-7">
         <button
           on:click={() => dispatch('close')}
-          class="right-4 top-4 absolute text-pastelPurple hover:text-daisyBush"
+          class="absolute right-4 top-4 text-pastelPurple hover:text-daisyBush"><Cancel /></button
         >
-          <Cancel />
-        </button>
-        <slot />
+        <slot><!-- optional fallback --></slot>
       </div>
     </div>
   </Portal>

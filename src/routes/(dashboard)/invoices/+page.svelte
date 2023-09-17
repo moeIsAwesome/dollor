@@ -58,10 +58,7 @@
         <InvoiceRow {invoice} />
       {/each}
     </div>
-    <CircledAmount
-      label="Total"
-      amount={`$${centsToDollars(sumInvoices($invoices))}`}
-    />
+    <CircledAmount label="Total" amount={`$${centsToDollars(sumInvoices($invoices))}`} />
   {/if}
 </div>
 

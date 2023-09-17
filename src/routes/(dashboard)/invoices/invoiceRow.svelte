@@ -4,11 +4,7 @@
   import View from '$lib/components/Icon/View.svelte';
   import Tag from '$lib/components/Tag.svelte';
   import { convertDate, isLate } from '$lib/utils/dateHelpers';
-  import {
-    sumLineItems,
-    centsToDollars,
-    invoiceTotal,
-  } from '$lib/utils/moneyHelpers';
+  import { sumLineItems, centsToDollars, invoiceTotal } from '$lib/utils/moneyHelpers';
   import Send from '$lib/components/Icon/Send.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
   import Edit from '$lib/components/Icon/Edit.svelte';
@@ -57,27 +53,19 @@
 <div
   class="invoice-table invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
 >
-  <div class="status">
-    <Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} />
-  </div>
+  <div class="status"><Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} /></div>
   <div class="dueDate text-sm lg:text-lg">{convertDate(invoice.dueDate)}</div>
   <div class="invoiceNumber text-sm lg:text-lg">{invoice.invoiceNumber}</div>
-  <div
-    class="clientName truncate whitespace-nowrap text-base font-bold lg:text-xl"
-  >
+  <div class="clientName truncate whitespace-nowrap text-base font-bold lg:text-xl">
     {invoice.client.name}
   </div>
   <div class="amount text-right font-mono text-sm font-bold lg:text-lg">
     ${centsToDollars(invoiceTotal(invoice.lineItems, invoice.discount))}
   </div>
-  <div
-    class="viewButton hidden items-center justify-center text-sm lg:flex lg:text-lg"
-  >
+  <div class="viewButton hidden items-center justify-center text-sm lg:flex lg:text-lg">
     <a href="#" class="text-pastelPurple hover:text-daisyBush"><View /></a>
   </div>
-  <div
-    class="moreButton relative hidden items-center justify-center text-sm lg:flex lg:text-lg"
-  >
+  <div class="moreButton relative hidden items-center justify-center text-sm lg:flex lg:text-lg">
     <button
       class=" text-pastelPurple hover:text-daisyBush"
       on:click={() => {
@@ -87,35 +75,16 @@
     {#if isAdditionalMenuShowing}
       <AdditionalOptions
         options={[
-          {
-            label: 'Edit',
-            icon: Edit,
-            onClick: handleEdit,
-            disabled: isOptionsDisabled,
-          },
-          {
-            label: 'Delete',
-            icon: Trash,
-            onClick: handleDelete,
-            disabled: false,
-          },
-          {
-            label: 'Send',
-            icon: Send,
-            onClick: handleSendInvoice,
-            disabled: isOptionsDisabled,
-          },
+          { label: 'Edit', icon: Edit, onClick: handleEdit, disabled: isOptionsDisabled },
+          { label: 'Delete', icon: Trash, onClick: handleDelete, disabled: false },
+          { label: 'Send', icon: Send, onClick: handleSendInvoice, disabled: isOptionsDisabled }
         ]}
       />
     {/if}
   </div>
 </div>
 
-<ConfirmDelete
-  {invoice}
-  {isModalShowing}
-  on:close={() => (isModalShowing = false)}
-/>
+<ConfirmDelete {invoice} {isModalShowing} on:close={() => (isModalShowing = false)} />
 
 {#if isInvoiceFormShowing}
   <SlidePanel
@@ -123,11 +92,7 @@
       isInvoiceFormShowing = false;
     }}
   >
-    <InvoiceForm
-      {invoice}
-      formState="edit"
-      closePanel={() => (isInvoiceFormShowing = false)}
-    />
+    <InvoiceForm {invoice} formState="edit" closePanel={() => (isInvoiceFormShowing = false)} />
   </SlidePanel>
 {/if}
 

@@ -1,11 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
-  import {
-    twoDecimals,
-    dollarsToCents,
-    centsToDollars,
-  } from '$lib/utils/moneyHelpers';
+  import { twoDecimals, dollarsToCents, centsToDollars } from '$lib/utils/moneyHelpers';
 
   export let lineItem: LineItem;
   export let canDelete: boolean = false;
@@ -85,8 +81,7 @@
         on:click|preventDefault={() => {
           dispatch('removeLineItem', lineItem.id);
         }}
-        class="center h-10 w-10 text-pastelPurple hover:text-lavenderIndigo"
-        ><Trash /></button
+        class="center h-10 w-10 text-pastelPurple hover:text-lavenderIndigo"><Trash /></button
       >
     {/if}
   </div>
