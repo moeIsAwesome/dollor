@@ -1,74 +1,85 @@
 <script lang="ts">
-  import Tag from '$lib/components/Tag.svelte';
+  import AdditionalOptions from '$lib/components/AdditionalOptions.svelte';
   import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
   import View from '$lib/components/Icon/View.svelte';
-  import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
+  import Tag from '$lib/components/Tag.svelte';
   import { convertDate, isLate } from '$lib/utils/dateHelpers';
-  import AdditionalOptions from '$lib/components/AdditionalOptions.svelte';
+  import {
+    sumLineItems,
+    centsToDollars,
+    invoiceTotal,
+  } from '$lib/utils/moneyHelpers';
   import Send from '$lib/components/Icon/Send.svelte';
-  import Edit from '$lib/components/Icon/Edit.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
-  import Modal from '$lib/components/Modal.svelte';
-  import Button from '$lib/components/Button.svelte';
+  import Edit from '$lib/components/Icon/Edit.svelte';
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import InvoiceForm from './InvoiceForm.svelte';
-  import { deleteInvoice } from '$lib/stores/InvoiceStore';
   import ConfirmDelete from './ConfirmDelete.svelte';
+
   export let invoice: Invoice;
-  let isModalShowing = false;
   let isAdditionalMenuShowing = false;
+  let isOptionsDisabled = false;
+  let isModalShowing = false;
   let isInvoiceFormShowing = false;
-  let isOptionDisabled = false;
+
   const handleDelete = () => {
     isModalShowing = true;
     isAdditionalMenuShowing = false;
+    console.log('deleting');
   };
+
   const handleEdit = () => {
-    console.log('edited');
+    console.log('editing');
     isInvoiceFormShowing = true;
     isAdditionalMenuShowing = false;
   };
+
   const handleSendInvoice = () => {
-    console.log('Send invoice');
+    console.log('sending');
   };
 
-  const getInvoiceLable = () => {
+  const getInvoiceLabel = () => {
     if (invoice.invoiceStatus === 'draft') {
       return 'draft';
     } else if (invoice.invoiceStatus === 'sent' && !isLate(invoice.dueDate)) {
-      isOptionDisabled = true;
+      isOptionsDisabled = true;
       return 'sent';
     } else if (invoice.invoiceStatus === 'sent' && isLate(invoice.dueDate)) {
-      isOptionDisabled = true;
+      isOptionsDisabled = true;
       return 'late';
     } else if (invoice.invoiceStatus === 'paid') {
-      isOptionDisabled = true;
+      isOptionsDisabled = true;
       return 'paid';
     }
   };
 </script>
 
 <div
-  class="invoice-table invoice-row items-center bg-white py-3 lg:py-6 rounded-lg shadow-tableRow"
+  class="invoice-table invoice-row items-center rounded-lg bg-white py-3 shadow-tableRow lg:py-6"
 >
   <div class="status">
-    <Tag className="ml-auto lg:ml-0" label={getInvoiceLable()} />
+    <Tag className="ml-auto lg:ml-0" label={getInvoiceLabel()} />
   </div>
-  <div class="text-sm lg:text-lg dueDate">{convertDate(invoice.dueDate)}</div>
-  <div class="text-sm lg:text-lg invoiceNumber">{invoice.invoiceNumber}</div>
-  <div class="lg:text-xl font-bold clientName text-base">
+  <div class="dueDate text-sm lg:text-lg">{convertDate(invoice.dueDate)}</div>
+  <div class="invoiceNumber text-sm lg:text-lg">{invoice.invoiceNumber}</div>
+  <div
+    class="clientName truncate whitespace-nowrap text-base font-bold lg:text-xl"
+  >
     {invoice.client.name}
   </div>
-  <div class="text-sm lg:text-lg font-bold font-mono amount text-right">
-    ${centsToDollars(sumLineItems(invoice.lineItems))}
+  <div class="amount text-right font-mono text-sm font-bold lg:text-lg">
+    ${centsToDollars(invoiceTotal(invoice.lineItems, invoice.discount))}
   </div>
-  <div class="text-sm lg:text-lg viewButton hidden lg:flex">
+  <div
+    class="viewButton hidden items-center justify-center text-sm lg:flex lg:text-lg"
+  >
     <a href="#" class="text-pastelPurple hover:text-daisyBush"><View /></a>
   </div>
-  <div class="text-lg center moreButton hidden lg:flex relative">
+  <div
+    class="moreButton relative hidden items-center justify-center text-sm lg:flex lg:text-lg"
+  >
     <button
-      class=" text-pastelPurple hover:text-daisyBush
-    "
+      class=" text-pastelPurple hover:text-daisyBush"
       on:click={() => {
         isAdditionalMenuShowing = !isAdditionalMenuShowing;
       }}><ThreeDots /></button
@@ -77,36 +88,33 @@
       <AdditionalOptions
         options={[
           {
-            label: 'Send',
-            icon: Send,
-            disabled: isOptionDisabled,
-            onClick: handleSendInvoice,
-          },
-          {
             label: 'Edit',
             icon: Edit,
-            disabled: isOptionDisabled,
             onClick: handleEdit,
+            disabled: isOptionsDisabled,
           },
           {
             label: 'Delete',
             icon: Trash,
-            disabled: false,
             onClick: handleDelete,
+            disabled: false,
+          },
+          {
+            label: 'Send',
+            icon: Send,
+            onClick: handleSendInvoice,
+            disabled: isOptionsDisabled,
           },
         ]}
       />
     {/if}
   </div>
-  <div />
 </div>
 
 <ConfirmDelete
   {invoice}
   {isModalShowing}
-  on:close={() => {
-    isModalShowing = false;
-  }}
+  on:close={() => (isModalShowing = false)}
 />
 
 {#if isInvoiceFormShowing}
