@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { SvelteComponent } from 'svelte';
+  export let className: string = '';
   export let label: string;
   export let onClick: () => void;
   export let style:
@@ -9,6 +10,7 @@
     | 'outline'
     | 'textOnly'
     | 'textOnlyDestructive' = 'primary';
+  export let height: 'short' | 'regular' = 'regular';
   export let isAnimated = true;
   export let iconLeft: (new (...args: any[]) => SvelteComponent) | null = null;
   export let iconRight: (new (...args: any[]) => SvelteComponent) | null = null;
@@ -16,13 +18,14 @@
 
 <button
   on:click|preventDefault={() => onClick()}
-  class="button"
+  class={`button ${className}`}
   class:primary={style === 'primary'}
   class:secondary={style === 'secondary'}
   class:destructive={style === 'destructive'}
   class:outline={style === 'outline'}
   class:textOnly={style === 'textOnly'}
   class:textOnlyDestructive={style === 'textOnlyDestructive'}
+  class:short={height === 'short'}
   class:isAnimated
 >
   {#if iconLeft}
@@ -61,5 +64,9 @@
 
   .outline {
     @apply border-daisyBush text-daisyBush hover:bg-daisyBush hover:text-white;
+  }
+
+  .short {
+    @apply !py-1;
   }
 </style>
