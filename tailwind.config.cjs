@@ -11,6 +11,7 @@ module.exports = {
       backgroundImage: {
         arrowLeftUp: "url('/images/arrow-left-up.svg')",
         arrowRightUp: "url('/images/arrow-right-up.svg')",
+        auth: "url('/images/bg-auth.svg')",
         bg404: "url('/images/bg-404.svg')",
         chevronDown: "url('/images/chevron--down.svg')",
         circle: "url('/images/circle.svg')",
@@ -20,7 +21,7 @@ module.exports = {
         'right-center': '97% center'
       },
       borderWidth: {
-        '1': '1px',
+        1: '1px'
       },
       boxShadow: {
         colored: '0px 7px 16px rgba(127, 91, 220, 0.002)',
@@ -45,14 +46,14 @@ module.exports = {
         robinEggBlue: '#00e9c0',
         scarlet: '#f72f45',
         silver: '#c0c0c0',
-        whisper: '#f9f4f9',
+        whisper: '#f9f4f9'
       },
       gridTemplateColumns: {
-        'clientTable': '100px 1fr 125px 125px 32px 32px',
-        'clientTableMobile': "1fr 90px",
-        'invoiceLineItem': '1fr 100px 100px 100px 65px',
-        'invoiceTable': '100px 100px 60px 1fr 116px 32px 32px',
-        'invoiceTableMobile': "1fr 90px"
+        clientTable: '100px 1fr 125px 125px 32px 32px',
+        clientTableMobile: '1fr 90px',
+        invoiceLineItem: '1fr 100px 100px 100px 65px',
+        invoiceTable: '100px 100px 60px 1fr 116px 32px 32px',
+        invoiceTableMobile: '1fr 90px'
       },
       zIndex: {
         toaster: 1000,
@@ -61,7 +62,7 @@ module.exports = {
         slidePanel: 997,
         overlay: 996,
         navBarToggle: 91,
-        navBar: 90,
+        navBar: 90
       }
     }
   },
