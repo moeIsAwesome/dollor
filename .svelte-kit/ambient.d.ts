@@ -48,13 +48,14 @@ declare module '$env/static/private' {
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const MallocNanoZone: string;
 	export const npm_config_registry: string;
+	export const npm_package_private: string;
 	export const npm_package_devDependencies_svelte_preprocess: string;
 	export const npm_package_devDependencies__sveltejs_kit: string;
-	export const npm_package_private: string;
 	export const ZSH: string;
 	export const NVM_DIR: string;
 	export const USER: string;
 	export const npm_package_scripts_check_watch: string;
+	export const npm_package_devDependencies_dotenv: string;
 	export const LS_COLORS: string;
 	export const COMMAND_MODE: string;
 	export const PNPM_SCRIPT_SRC_DIR: string;
@@ -90,8 +91,8 @@ declare module '$env/static/private' {
 	export const npm_package_dependencies_svelte_markdown: string;
 	export const npm_config_node_gyp: string;
 	export const npm_package_devDependencies_eslint_config_prettier: string;
-	export const npm_package_devDependencies__sveltejs_adapter_auto: string;
 	export const npm_package_version: string;
+	export const npm_package_devDependencies__sveltejs_adapter_auto: string;
 	export const XPC_SERVICE_NAME: string;
 	export const npm_package_devDependencies_svelte_check: string;
 	export const npm_package_devDependencies_autoprefixer: string;
@@ -106,6 +107,7 @@ declare module '$env/static/private' {
 	export const npm_lifecycle_script: string;
 	export const npm_package_devDependencies_prettier_plugin_tailwindcss: string;
 	export const VSCODE_GIT_IPC_HANDLE: string;
+	export const npm_package_dependencies__supabase_supabase_js: string;
 	export const NVM_BIN: string;
 	export const npm_config_user_agent: string;
 	export const VSCODE_GIT_ASKPASS_NODE: string;
@@ -126,7 +128,8 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-
+	export const PUBLIC_SUPABASE_URL: string;
+	export const PUBLIC_SUPABASE_ANON_KEY: string;
 }
 
 /**
@@ -163,13 +166,14 @@ declare module '$env/dynamic/private' {
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		MallocNanoZone: string;
 		npm_config_registry: string;
+		npm_package_private: string;
 		npm_package_devDependencies_svelte_preprocess: string;
 		npm_package_devDependencies__sveltejs_kit: string;
-		npm_package_private: string;
 		ZSH: string;
 		NVM_DIR: string;
 		USER: string;
 		npm_package_scripts_check_watch: string;
+		npm_package_devDependencies_dotenv: string;
 		LS_COLORS: string;
 		COMMAND_MODE: string;
 		PNPM_SCRIPT_SRC_DIR: string;
@@ -205,8 +209,8 @@ declare module '$env/dynamic/private' {
 		npm_package_dependencies_svelte_markdown: string;
 		npm_config_node_gyp: string;
 		npm_package_devDependencies_eslint_config_prettier: string;
-		npm_package_devDependencies__sveltejs_adapter_auto: string;
 		npm_package_version: string;
+		npm_package_devDependencies__sveltejs_adapter_auto: string;
 		XPC_SERVICE_NAME: string;
 		npm_package_devDependencies_svelte_check: string;
 		npm_package_devDependencies_autoprefixer: string;
@@ -221,6 +225,7 @@ declare module '$env/dynamic/private' {
 		npm_lifecycle_script: string;
 		npm_package_devDependencies_prettier_plugin_tailwindcss: string;
 		VSCODE_GIT_IPC_HANDLE: string;
+		npm_package_dependencies__supabase_supabase_js: string;
 		NVM_BIN: string;
 		npm_config_user_agent: string;
 		VSCODE_GIT_ASKPASS_NODE: string;
@@ -245,6 +250,8 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
+		PUBLIC_SUPABASE_URL: string;
+		PUBLIC_SUPABASE_ANON_KEY: string;
 		[key: string]: string | undefined;
 	}
 }

@@ -20,7 +20,7 @@ export const nodes = [() => import('./nodes/0'),
 export const server_loads = [];
 
 export const dictionary = {
-	"": [5],
+	"": [~5],
 	"(auth)/forgot-password": [6,[2]],
 	"(auth)/login": [7,[2]],
 	"(auth)/reset-password": [8,[2]],
