@@ -35,12 +35,6 @@
       <input type="email" name="email" placeholder="Your Email" bind:value={email} />
     </div>
     <div class="field">
-      <div class="flex justify-between">
-        <label for="password" class="text-goldenFizz">Password</label>
-        <a href="/forgot-password" class="text-sm text-white underline hover:no-underline"
-          >Forgot?</a
-        >
-      </div>
       <input type="password" placeholder="Your password" bind:value={password} />
     </div>
     <div class="field">
