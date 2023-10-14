@@ -48,24 +48,17 @@
     invoice.lineItems = invoice.lineItems;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isNewClient) {
       invoice.client = newClient as Client;
-      addClient(newClient as Client);
+      const addedClient = await addClient(newClient as Client);
+      invoice.client.id = addedClient?.id;
     }
 
     if (formState === 'create') {
-      addInvoice(invoice);
-      snackbar.send({
-        message: 'Your invoice was successfully created.',
-        type: 'success'
-      });
+      await addInvoice(invoice);
     } else {
-      updateInvoice(invoice);
-      snackbar.send({
-        message: 'Your invoice was successfully updated.',
-        type: 'success'
-      });
+      await updateInvoice(invoice);
     }
 
     closePanel();

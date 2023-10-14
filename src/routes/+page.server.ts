@@ -1,3 +1,2 @@
-import supabase from '$lib/utils/supabase';
-
+import supabase from '$lib/utils/supabase'
 console.log(supabase);

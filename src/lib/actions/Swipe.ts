@@ -1,5 +1,5 @@
 import type { Action } from 'svelte/action';
-import { spring } from 'svelte/motion';
+import { spring } from "svelte/motion";
 
 interface SwipeProps {
   triggerReset?: boolean;
@@ -15,13 +15,13 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
     { x: 0, y: 0 },
     {
       stiffness: 0.2,
-      damping: 0.4
+      damping: 0.4,
     }
-  );
+  )
 
   coordinates.subscribe(($coords) => {
-    node.style.transform = `translate3d(${$coords.x}px, 0, 0)`;
-  });
+    node.style.transform = `translate3d(${$coords.x}px, 0, 0)`
+  })
 
   function setupEventListeners() {
     if (isMobileBreakpoint()) {
@@ -39,12 +39,12 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
   setupEventListeners();
 
   // listen for browser resize
-  window.addEventListener('resize', () => {
+  window.addEventListener("resize", () => {
     setupEventListeners();
-  });
+  })
 
   function isMobileBreakpoint() {
-    const mediaQuery = window.matchMedia('(max-width: 1024px)');
+    const mediaQuery = window.matchMedia("(max-width: 1024px)");
     if (mediaQuery.matches) {
       return true;
     }
@@ -52,13 +52,15 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
 
   function resetCard() {
     coordinates.update(() => {
-      return { x: 0, y: 0 };
-    });
+      return { x: 0, y: 0 }
+    })
     triggerReset = false;
   }
 
   function outOfView() {
-    node.dispatchEvent(new CustomEvent('outOfView'));
+    node.dispatchEvent(
+      new CustomEvent('outOfView')
+    )
   }
 
   function handleMouseDown(event: MouseEvent) {
@@ -93,18 +95,18 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
       return {
         x: $coords.x + dx,
         y: 0
-      };
+      }
     });
   }
 
   function setXCoordinates(x: number) {
     coordinates.update(() => {
-      return { x, y: 0 };
+      return { x, y: 0 }
     });
   }
 
   function moveCardOver(endingX: number) {
-    const leftSnapX = elementWidth * -0.95;
+    const leftSnapX = elementWidth * -.95
     const rightSnapX = 0;
     const movement = startingX - endingX;
 
@@ -134,7 +136,7 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
   }
 
   return {
-    update(newParams: SwipePops) {
+    update(newParams: SwipeProps) {
       if (newParams.triggerReset) {
         resetCard();
       }
@@ -143,5 +145,5 @@ export const swipe: Action<HTMLElement, SwipeProps> = (node, params) => {
       node.removeEventListener('mousedown', handleMouseDown);
       node.removeEventListener('touchstart', handleTouchStart);
     }
-  };
-};
+  }
+}

@@ -5,13 +5,13 @@ export const clickOutside: Action<HTMLElement, () => void> = (node, runFunction)
     if (!node.contains(event.target as HTMLElement)) {
       if (runFunction) runFunction();
     }
-  };
+  }
 
-  document.addEventListener('click', handleClick, true);
+  document.addEventListener("click", handleClick, true);
 
   return {
     destroy() {
-      document.removeEventListener('click', handleClick, true);
+      document.removeEventListener("click", handleClick, true);
     }
-  };
-};
+  }
+}

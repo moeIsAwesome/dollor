@@ -13,9 +13,11 @@
   import SlidePanel from '$lib/components/SlidePanel.svelte';
   import ClientForm from './ClientForm.svelte';
   import { swipe } from '$lib/actions/Swipe';
+  import ConfirmDelete from './ConfirmDelete.svelte';
 
   export let client: Client;
   let triggerReset = false;
+  let isModalShowing = false;
 
   let isAdditionalMenuShowing = false;
 
@@ -26,9 +28,9 @@
   };
 
   const receivedInvoices = () => {
-    if (client?.invoices) {
+    if (client?.invoice) {
       // find invoices that have been paid
-      const paidInvoices = client.invoices.filter((invoice) => invoice.invoiceStatus === 'paid');
+      const paidInvoices = client.invoice.filter((invoice) => invoice.invoiceStatus === 'paid');
 
       // get the sum of all of them
       return sumInvoices(paidInvoices);
@@ -37,9 +39,9 @@
   };
 
   const balanceInvoices = () => {
-    if (client?.invoices) {
+    if (client?.invoice) {
       // find invoices that have NOT been paid
-      const paidInvoices = client.invoices.filter((invoice) => invoice.invoiceStatus !== 'paid');
+      const paidInvoices = client.invoice.filter((invoice) => invoice.invoiceStatus !== 'paid');
 
       // get the sum of all of them
       return sumInvoices(paidInvoices);
@@ -58,7 +60,8 @@
   };
 
   const handleDeleteClient = () => {
-    console.log('deleting');
+    isModalShowing = true;
+    isAdditionalMenuShowing = false;
   };
 </script>
 
@@ -164,6 +167,14 @@
     <ClientForm {closePanel} formStatus="edit" {client} />
   </SlidePanel>
 {/if}
+
+<ConfirmDelete
+  {client}
+  {isModalShowing}
+  on:close={() => {
+    isModalShowing = false;
+  }}
+/>
 
 <style lang="postcss">
   .client-row {

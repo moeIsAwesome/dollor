@@ -15,7 +15,8 @@ export const nodes = [() => import('./nodes/0'),
 	() => import('./nodes/12'),
 	() => import('./nodes/13'),
 	() => import('./nodes/14'),
-	() => import('./nodes/15')];
+	() => import('./nodes/15'),
+	() => import('./nodes/16')];
 
 export const server_loads = [];
 
@@ -23,12 +24,13 @@ export const dictionary = {
 	"": [~5],
 	"(auth)/forgot-password": [6,[2]],
 	"(auth)/login": [7,[2]],
-	"(auth)/reset-password": [8,[2]],
-	"(auth)/signup": [9,[2]],
-	"(dashboard)/clients": [10,[3]],
-	"(dashboard)/invoices": [12,[3]],
-	"settings": [15],
-	"(dashboard)/invoices/thanks": [14],
-	"(dashboard)/clients/[id]": [11,[3]],
-	"(dashboard)/invoices/[id]": [13,[4]]
+	"(auth)/logout": [8,[2]],
+	"(auth)/reset-password": [9,[2]],
+	"(auth)/signup": [10,[2]],
+	"(dashboard)/clients": [11,[3]],
+	"(dashboard)/invoices": [13,[3]],
+	"settings": [16],
+	"(dashboard)/invoices/thanks": [15],
+	"(dashboard)/clients/[id]": [12,[3]],
+	"(dashboard)/invoices/[id]": [14,[4]]
 };

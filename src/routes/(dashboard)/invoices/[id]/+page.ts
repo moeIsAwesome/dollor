@@ -1,9 +1,9 @@
-import { getInvoiceById } from '$lib/stores/InvoiceStore';
+import { getInvoiceById } from "$lib/stores/InvoiceStore";
 
 interface Props {
   params: {
-    id: string;
-  };
+    id: string
+  }
 }
 
 export async function load({ params }: Props) {
@@ -11,4 +11,4 @@ export async function load({ params }: Props) {
   const invoice = await getInvoiceById(id);
   console.log({ invoice });
   return { invoice };
-}
+};

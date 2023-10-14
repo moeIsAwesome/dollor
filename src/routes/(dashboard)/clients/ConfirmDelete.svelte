@@ -1,16 +1,16 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import Modal from '$lib/components/Modal.svelte';
-  import { deleteInvoice } from '$lib/stores/InvoiceStore';
+  import { deleteClient } from '$lib/stores/ClientStore';
   import { centsToDollars, sumLineItems } from '$lib/utils/moneyHelpers';
   import { createEventDispatcher } from 'svelte';
 
-  export let invoice: Invoice;
+  export let client: Client;
   export let isModalShowing = false;
   const dispatch = createEventDispatcher();
 
   const handleDelete = async () => {
-    await deleteInvoice(invoice);
+    await deleteClient(client);
     dispatch('close');
   };
 </script>
@@ -18,9 +18,8 @@
 <Modal isVisible={isModalShowing} on:close>
   <div class="flex h-full min-h-[175px] flex-col items-center justify-between gap-6">
     <div class="text-center text-xl font-bold text-daisyBush">
-      Are you sure you want to delete this invoice to
-      <span class="text-scarlet">{invoice.client.name}</span> for
-      <span class="text-scarlet">${centsToDollars(sumLineItems(invoice.lineItems))}</span>?
+      Are you sure you want to delete this <span class="text-scarlet">{client.name}</span> and all their
+      invoice(s)?
     </div>
     <div class="flex gap-4">
       <Button
