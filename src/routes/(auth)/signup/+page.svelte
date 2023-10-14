@@ -35,7 +35,7 @@
     // add the full name to the settings table
     if (userResults?.data?.user?.id) {
       const settingsResults = await supabase
-        .from('setting')
+        .from('settings')
         .insert([{ myName: fullName, userId: userResults.data.user.id }]);
 
       if (settingsResults.error) {
